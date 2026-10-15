@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Cleans and checks user input for Pantry Pal.
+ * 
  * Author: Blake Adkins
  * Date: 10/14/2026
  */

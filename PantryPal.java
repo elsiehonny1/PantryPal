@@ -3,11 +3,17 @@ package PantryPal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+
+import PantryPal.src.MealPlan;
+import PantryPal.src.Pantry;
  
 /**
  * Runs the Pantry Pal program: shows a numbered menu, reads what the user
  * types, re-asks when input is bad, hands clean input to the Pantry and
  * MealPlan, prints the results, and exits cleanly on Quit or closed input.
+ * 
+ * Author: Blake Adkins
+ * Date: 10/14/2026
  */
 public class PantryPal {
  
