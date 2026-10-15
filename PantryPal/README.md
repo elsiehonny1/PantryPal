@@ -54,8 +54,5 @@ Dates are MM/DD/YYYY. Recipe ingredients are comma-separated.
 | Node.java, LinkedChain.java | | provided starter / adapted |
 | Validator.java, PantryPal.java | Blake Adkins | |
 | FoodItem.java, Recipe.java | Elsie Honny | |
-| Pantry.java, MealPlan.java | | |
-| NodeTest, LinkedChainTest, FoodItemTest, RecipeTest, ValidatorTest | | |
-| PantryTest, MealPlanTest, PantryPalTest | | |
-
-**GenAI note:** (Be specific, e.g. "Claude drafted the first version of X; we read every test, ran them, and changed Y.")
+| Pantry.java, MealPlan.java | Ayaan Deshmukh | |
+| NodeTest, LinkedChainTest, FoodItemTest, RecipeTest, ValidatorTest, PantryTest, MealPlanTest, PantryPalTest | Haniya Naseer | |
