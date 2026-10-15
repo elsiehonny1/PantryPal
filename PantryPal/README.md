@@ -26,11 +26,12 @@ Dates are MM/DD/YYYY. Recipe ingredients are comma-separated.
 
 ## Reflection
 
-(Fill in with your real answers. Say where each change came from: group, GenAI, or own reflection.)
-
 ### What changed from our specification?
-- Pantry and MealPlan do the name cleaning through `Validator.cleanName`, so invalid names throw `IllegalArgumentException` and valid-but-missing names return false/0, as the spec said.
-- (Add anything your team actually changed: signatures, where validation lives, test cases.)
+- Menu: We chose seven menu options based on what Pantry and MealPlan support.
+- Name validation: Pantry and MealPlan clean names using Validator.cleanName. Invalid names throw an exception, while valid names that don't exist return false or 0. PantryPal also cleans names before passing them along.
+- FoodItem equality depends on name and date, while Recipe equality depends on name. A meal plan can contain the same recipe more than once. 
+- Today's date is not considered past, and already-expired food gets a warning instead of being rejected.
+- LinkedChain.add(null) throws an exception, while other operations return false or 0 for null. 
 
 ### What changed in the LinkedChain?
 (Used unchanged / what you added and why.)
@@ -52,7 +53,7 @@ Dates are MM/DD/YYYY. Recipe ingredients are comma-separated.
 | File | Who | How |
 |------|-----|-----|
 | Node.java, LinkedChain.java | | provided starter / adapted |
-| Validator.java, PantryPal.java | Blake Adkins | |
+| Validator.java, PantryPal.java | Blake Adkins | Validator with help of Claude and spec to understand what should be checked, PantryPal mostly Claude to ensure it runs all the classes properly|
 | FoodItem.java, Recipe.java | Elsie Honny | |
 | Pantry.java, MealPlan.java | Ayaan Deshmukh | |
 | NodeTest, LinkedChainTest, FoodItemTest, RecipeTest, ValidatorTest, PantryTest, MealPlanTest, PantryPalTest | Haniya Naseer | |
