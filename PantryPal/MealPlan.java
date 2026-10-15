@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Manages the weekly recipes. Storage is a LinkedChain<Recipe>, used only
+ * through its public methods. Duplicate recipes are allowed.
+ */
+public class MealPlan {
+
+    private final LinkedChain<Recipe> recipes;
+
+    /** Creates an empty meal plan. */
+    public MealPlan() {
+        recipes = new LinkedChain<>();
+    }
+
+    /**
+     * Adds one recipe (duplicates allowed).
+     *
+     * @param recipe the recipe to add
+     * @return true if added
+     * @throws IllegalArgumentException if recipe is null
+     */
+    public boolean add(Recipe recipe) {
+        if (recipe == null) {
+            throw new IllegalArgumentException("Recipe cannot be null.");
+        }
+        return recipes.add(recipe);
+    }
+
+    /**
+     * Removes one recipe with the given name.
+     *
+     * @param name the recipe name (cleaned before use)
+     * @return true if removed, false if no match
+     * @throws IllegalArgumentException if the name is invalid
+     */
+    public boolean remove(String name) {
+        String clean = Validator.cleanName(name);
+        Recipe match = null;
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(clean)) {
+                match = recipe;
+                break;
+            }
+        }
+        if (match == null) {
+            return false;
+        }
+        // Recipe equality is by name, so this removes one entry with that name
+        return recipes.remove(match);
+    }
+
+    /** @return an unmodifiable snapshot of the recipes, empty list if empty */
+    public List<Recipe> getRecipes() {
+        List<Recipe> copy = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            copy.add(recipe);
+        }
+        return Collections.unmodifiableList(copy);
+    }
+}
