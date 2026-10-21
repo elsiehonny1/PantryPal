@@ -111,6 +111,33 @@ public class PantryTest extends student.TestCase {
         }
     }
 
+    public void testContainsExpiredAndUnexpired() {
+        LocalDate today = LocalDate.of(2026, 10, 21);
+        pantry.add(new FoodItem("milk", today.minusDays(1)));
+        assertTrue(pantry.containsExpired("milk", today));
+        assertFalse(pantry.containsUnexpired("milk", today));
+
+        pantry.add(new FoodItem("milk", today));
+        assertTrue(pantry.containsUnexpired("milk", today));
+    }
+
+    public void testExpirationChecksRejectNullDate() {
+        try {
+            pantry.containsExpired("milk", null);
+            fail("should have thrown");
+        }
+        catch (IllegalArgumentException e) {
+            assertNotNull(e);
+        }
+        try {
+            pantry.containsUnexpired("milk", null);
+            fail("should have thrown");
+        }
+        catch (IllegalArgumentException e) {
+            assertNotNull(e);
+        }
+    }
+
     // ---------- count ----------
 
     public void testCountAcrossDates() {

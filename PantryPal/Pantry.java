@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Manages the pantry's food items. All storage is done by a
@@ -69,6 +70,36 @@ public class Pantry {
      */
     public boolean contains(String name) {
         return count(name) > 0;
+    }
+
+    /** Checks whether a matching item expires today or later. */
+    public boolean containsUnexpired(String name, LocalDate today) {
+        String clean = Validator.cleanName(name);
+        if (today == null) {
+            throw new IllegalArgumentException("Date cannot be null.");
+        }
+        for (FoodItem food : items) {
+            if (food.getName().equals(clean)
+                && !Validator.isPast(food.getExpirationDate(), today)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Checks whether a matching item has expired before today. */
+    public boolean containsExpired(String name, LocalDate today) {
+        String clean = Validator.cleanName(name);
+        if (today == null) {
+            throw new IllegalArgumentException("Date cannot be null.");
+        }
+        for (FoodItem food : items) {
+            if (food.getName().equals(clean)
+                && Validator.isPast(food.getExpirationDate(), today)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

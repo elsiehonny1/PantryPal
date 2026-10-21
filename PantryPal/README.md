@@ -21,8 +21,10 @@ Put all `.java` files in one folder / project. You need JUnit and the CS 2114
       PantryTest MealPlanTest PantryPalTest
 
 Menu: 1 Add food, 2 Remove food, 3 View pantry, 4 Add recipe, 5 Remove recipe,
-6 View meal plan, 7 Quit (Ctrl+D also exits cleanly).
+6 View meal plan, 7 View shopping list, 8 Quit (Ctrl+D also exits cleanly).
 Dates are MM/DD/YYYY. Recipe ingredients are comma-separated.
+The shopping list includes each distinct meal-plan ingredient that is not in
+the pantry.
 
 ## Reflection
 
@@ -59,7 +61,7 @@ Dates are MM/DD/YYYY. Recipe ingredients are comma-separated.
 | File | Who | How |
 |------|-----|-----|
 | Node.java, LinkedChain.java | | provided starter / adapted |
-| Validator.java, PantryPal.java | Blake Adkins | Validator with help of Claude and spec to understand what should be checked, PantryPal with use of Claude to ensure it runs all the classes properly|
+| Validator.java, PantryPal.java | Blake Adkins | Validator with help of Claude and spec to understand what should be checked, PantryPal with use of Claude to ensure it runs all the classes properly, stretch goal shopping list written by Codex|
 | FoodItem.java, Recipe.java | Elsie Honny | Used Claude to generate the classes|
 | Pantry.java, MealPlan.java | Ayaan Deshmukh | Used Claude to generate the classes|
 | NodeTest, LinkedChainTest, FoodItemTest, RecipeTest, ValidatorTest, PantryTest, MealPlanTest, PantryPalTest | Haniya Naseer | Used Claude to generate proper tests based on the spec document|

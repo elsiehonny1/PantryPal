@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Tests for MealPlan. Normal + bad-input case for every public method,
@@ -107,6 +108,42 @@ public class MealPlanTest extends student.TestCase {
         }
         catch (UnsupportedOperationException e) {
             assertEquals(1, plan.getRecipes().size());
+        }
+    }
+
+    public void testShoppingListMissingAndDeduplicatesIngredients() {
+        Pantry pantry = new Pantry();
+        pantry.add(new FoodItem("eggs", LocalDate.now().plusDays(2)));
+        plan.add(omelette);
+        plan.add(pancakes);
+        assertEquals(Arrays.asList("cheese", "flour", "milk"),
+            plan.getShoppingList(pantry));
+    }
+
+    public void testShoppingListIncludesExpiredIngredient() {
+        Pantry pantry = new Pantry();
+        pantry.add(new FoodItem("eggs", LocalDate.now().minusDays(1)));
+        plan.add(omelette);
+        assertEquals(Arrays.asList("eggs", "cheese"), plan.getShoppingList(pantry));
+    }
+
+    public void testShoppingListUnmodifiableAndRejectsNullPantry() {
+        Pantry pantry = new Pantry();
+        plan.add(omelette);
+        List<String> list = plan.getShoppingList(pantry);
+        try {
+            list.add("flour");
+            fail("should have thrown");
+        }
+        catch (UnsupportedOperationException e) {
+            assertEquals(Arrays.asList("eggs", "cheese"), list);
+        }
+        try {
+            plan.getShoppingList(null);
+            fail("should have thrown");
+        }
+        catch (IllegalArgumentException e) {
+            assertNotNull(e);
         }
     }
 }

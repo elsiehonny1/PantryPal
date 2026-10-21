@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.time.LocalDate;
 
 /**
  * Manages the weekly recipes. Storage is a LinkedChain<Recipe>, used only
@@ -59,5 +62,29 @@ public class MealPlan {
             copy.add(recipe);
         }
         return Collections.unmodifiableList(copy);
+    }
+
+    /**
+     * Builds a shopping list containing each ingredient needed by the meal
+     * plan that is not currently in the pantry. Ingredients shared by
+     * multiple recipes appear only once.
+     *
+     * @param pantry the pantry to check
+     * @return an unmodifiable list of missing ingredient names
+     * @throws IllegalArgumentException if pantry is null
+     */
+    public List<String> getShoppingList(Pantry pantry) {
+        if (pantry == null) {
+            throw new IllegalArgumentException("Pantry cannot be null.");
+        }
+        Set<String> missing = new LinkedHashSet<>();
+        for (Recipe recipe : recipes) {
+            for (String ingredient : recipe.getIngredients()) {
+                if (!pantry.containsUnexpired(ingredient, LocalDate.now())) {
+                    missing.add(ingredient);
+                }
+            }
+        }
+        return Collections.unmodifiableList(new ArrayList<>(missing));
     }
 }

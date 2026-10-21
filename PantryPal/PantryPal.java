@@ -50,6 +50,9 @@ public class PantryPal {
                     viewMealPlan();
                     break;
                 case "7":
+                    viewShoppingList();
+                    break;
+                case "8":
                     quit();
                     break;
                 default:
@@ -141,6 +144,26 @@ public class PantryPal {
         }
     }
 
+    private void viewShoppingList() {
+        List<String> shoppingList = mealPlan.getShoppingList(pantry);
+        if (shoppingList.isEmpty()) {
+            System.out.println("No missing ingredients. Your shopping list is empty.");
+            return;
+        }
+        System.out.println("Shopping list:");
+        LocalDate today = LocalDate.now();
+        for (String ingredient : shoppingList) {
+            if (pantry.containsExpired(ingredient, today)
+                && !pantry.containsUnexpired(ingredient, today)) {
+                System.out.println("- " + ingredient
+                    + " (WARNING: expired in pantry; buy fresh)");
+            }
+            else {
+                System.out.println("- " + ingredient);
+            }
+        }
+    }
+
     // ---------- input helpers (return null if input closed) ----------
 
     private void printMenu() {
@@ -152,7 +175,8 @@ public class PantryPal {
         System.out.println("4. Add recipe");
         System.out.println("5. Remove recipe");
         System.out.println("6. View meal plan");
-        System.out.println("7. Quit");
+        System.out.println("7. View shopping list");
+        System.out.println("8. Quit");
     }
 
     private String ask(String prompt) {
